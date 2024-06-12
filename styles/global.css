@@ -1,0 +1,17 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer utilities {
+  .h-screen {
+    height: 100dvh;
+  }
+}
+
+html {
+  @apply bg-background text-foreground font-sans box-border
+}
+
+body {
+  @apply h-screen w-screen flex flex-col items-stretch
+}

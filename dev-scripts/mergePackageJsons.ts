@@ -2,7 +2,7 @@ import * as fs from "fs"
 import * as path from "path"
 import { merge } from "ts-deepmerge"
 
-export default function mergePackageJsons(output: string, paths: string[]) {
+function mergePackageJsons(output: string, paths: string[]) {
   const packageJsonObjects = paths.map((packageJsonPath) => {
     const jsonString = fs.readFileSync(packageJsonPath, "utf-8")
     const jsonObject = JSON.parse(jsonString)

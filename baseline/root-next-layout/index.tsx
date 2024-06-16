@@ -1,6 +1,11 @@
+"use client"
+
 import React from "react"
 import { fontsClassName } from "../styles/fonts"
 import StyleProvider from "../styles/provider"
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
+
+const queryClient = new QueryClient()
 
 export default function RootLayout({
   htmlProps,
@@ -17,7 +22,9 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning className={fontsClassName} {...htmlProps}>
       <body {...bodyProps}>
-        <StyleProvider>{children}</StyleProvider>
+        <StyleProvider>
+          <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+        </StyleProvider>
       </body>
     </html>
   )

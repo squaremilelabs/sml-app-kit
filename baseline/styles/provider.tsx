@@ -10,7 +10,9 @@ export default function StyleProvider({ children }: { children: React.ReactNode 
   const router = useRouter()
   return (
     <NextUIProvider navigate={router.push}>
-      <NextThemeProvider attribute="class">{children}</NextThemeProvider>
+      <NextThemeProvider attribute="class">
+        <div className="flex h-screen w-screen flex-col">{children}</div>
+      </NextThemeProvider>
     </NextUIProvider>
   )
 }

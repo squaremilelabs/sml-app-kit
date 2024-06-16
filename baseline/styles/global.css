@@ -11,7 +11,3 @@
 html {
   @apply bg-background text-foreground font-sans box-border
 }
-
-body {
-  @apply h-screen w-screen flex flex-col items-stretch
-}

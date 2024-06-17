@@ -48,7 +48,12 @@ export default function RecipientBox(props: PortletComponentProps) {
                 ) : null}
               </div>
               {showChangeButton ? (
-                <Button variant="flat" className="mt-1" onPress={() => setShowForm(true)}>
+                <Button
+                  color="primary"
+                  variant="flat"
+                  className="mt-1"
+                  onPress={() => setShowForm(true)}
+                >
                   Change
                 </Button>
               ) : null}

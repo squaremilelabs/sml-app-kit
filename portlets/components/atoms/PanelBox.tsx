@@ -9,7 +9,7 @@ export default function PanelBox({
   children: React.ReactNode
 }) {
   return (
-    <Card shadow="none" className="shrink-0 border-2 border-default-200">
+    <Card className="shrink-0">
       <CardHeader className="pb-0">
         <h4 className="font-semibold text-default-500">{title}</h4>
       </CardHeader>

@@ -65,7 +65,7 @@ export default function RecipientForm({
         type="submit"
         className="col-span-2"
         color="primary"
-        variant="ghost"
+        variant="flat"
         isDisabled={!formik.isValid}
       >
         Save

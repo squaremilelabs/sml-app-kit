@@ -18,6 +18,7 @@
       "error",
       {
         "plugins": ["prettier-plugin-tailwindcss"],
+        "tailwindConfig": "./~sml-app-kit/smui/config/tailwind.config.ts",
         "semi": false,
         "printWidth": 100,
         "proseWrap": "always",

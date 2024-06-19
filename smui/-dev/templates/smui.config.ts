@@ -1,4 +1,4 @@
-import { SMUIConfig } from "../types"
+import { SMUIConfig } from "~sml-app-kit/smui/config/types"
 
 const smuiConfig: SMUIConfig = {}
 

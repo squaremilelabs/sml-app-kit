@@ -1,9 +1,15 @@
 {
   "dependencies": {
+    "@internationalized/date": "^3.5.4",
     "@mdi/js": "^7.4.47",
     "@mdi/react": "^1.6.1",
     "@nextui-org/react": "^2.4.2",
+    "@paralleldrive/cuid2": "^2.2.2",
+    "@prisma/client": "^5.15.1",
     "@tanstack/react-query": "^5.45.0",
+    "@zenstackhq/runtime": "^2.2.3",
+    "firebase": "^10.12.2",
+    "firebase-admin": "^12.1.1",
     "formik": "^2.4.6",
     "framer-motion": "^11.1.7",
     "next": "^14.2.3",
@@ -33,9 +39,12 @@
     "postcss": "8.4.38",
     "prettier": "^3.2.5",
     "prettier-plugin-tailwindcss": "^0.5.14",
+    "prisma": "^5.15.1",
+    "tailwind-extended-shadows": "^0.4.0",
     "tailwindcss": "^3.4.3",
     "tsconfig-paths": "^4.2.0",
     "tsx": "^4.9.4",
-    "typescript": "5.0.4"
+    "typescript": "5.0.4",
+    "zenstack": "^2.2.3"
   }
 }

@@ -3,9 +3,11 @@ import { merge } from "ts-deepmerge"
 import { NextUIPluginConfig, nextui } from "@nextui-org/react"
 import { Config as TailwindConfig } from "tailwindcss"
 import tailwindContainerQueryPlugin from "@tailwindcss/container-queries"
+import tailwindExtendedShadowsPlugin from "tailwind-extended-shadows"
 import smuiConfig from "smui.config"
+import { PluginAPI } from "tailwindcss/types/config"
 
-const nextUIConfig: NextUIPluginConfig = merge(
+const nextUIConfig = merge(
   {
     addCommonColors: true,
     layout: {
@@ -24,7 +26,7 @@ const nextUIConfig: NextUIPluginConfig = merge(
       light: {
         extend: "light",
         colors: {
-          focus: "#27ABE8",
+          focus: "#418bb6",
           primary: {
             "50": "#faf9ec",
             "100": "#f4f0cd",
@@ -49,14 +51,32 @@ const nextUIConfig: NextUIPluginConfig = merge(
             "700": "#27597d",
             "800": "#244c68",
             "900": "#234157",
-            "DEFAULT": "#c59b2d",
+            "DEFAULT": "#418bb6",
+          },
+          danger: {
+            "50": "#fef2f2",
+            "100": "#fee2e2",
+            "200": "#fecaca",
+            "300": "#fca5a5",
+            "400": "#f87171",
+            "500": "#ef4444",
+            "600": "#dc2626",
+            "700": "#b91c1c",
+            "800": "#991b1b",
+            "900": "#7f1d1d",
+            "DEFAULT": "#ef4444",
           },
         },
       },
       dark: {
         extend: "dark",
         colors: {
-          focus: "#27ABE8",
+          focus: "#418bb6",
+          background: "#18181b",
+          content1: "#000000",
+          content2: "#393941",
+          content3: "#41414b",
+          content4: "#4c4d58",
           primary: {
             "50": "#382010",
             "100": "#623e21",
@@ -83,12 +103,25 @@ const nextUIConfig: NextUIPluginConfig = merge(
             "900": "#e7f0f7",
             "DEFAULT": "#418bb6",
           },
+          danger: {
+            "50": "#450a0a",
+            "100": "#7f1d1d",
+            "200": "#991b1b",
+            "300": "#b91c1c",
+            "400": "#dc2626",
+            "500": "#ef4444",
+            "600": "#f87171",
+            "700": "#fca5a5",
+            "800": "#fecaca",
+            "900": "#fee2e2",
+            "DEFAULT": "#ef4444",
+          },
         },
       },
     },
-  },
+  } as NextUIPluginConfig,
   smuiConfig?.nextui ?? {}
-) as NextUIPluginConfig
+)
 
 const tailwindConfig = merge(
   {
@@ -123,6 +156,9 @@ const tailwindConfig = merge(
         wxl: "1440px",
       },
       extend: {
+        colors: {
+          black: "#282C35",
+        },
         borderRadius: {
           sm: "4px",
           md: "4px",
@@ -142,9 +178,13 @@ const tailwindConfig = merge(
         },
       },
     },
-    plugins: [tailwindContainerQueryPlugin, nextui(nextUIConfig)],
-  },
+    plugins: [
+      tailwindContainerQueryPlugin,
+      tailwindExtendedShadowsPlugin as PluginAPI,
+      nextui(nextUIConfig),
+    ],
+  } as TailwindConfig,
   smuiConfig?.tailwind ?? {}
-) as TailwindConfig
+)
 
 export default tailwindConfig

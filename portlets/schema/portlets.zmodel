@@ -1,0 +1,86 @@
+model Portlet {
+  id                    String                       @id() @default(cuid())
+  key                   String                       @unique()
+  title                 String
+  recipientSelectMethod PortletRecipientSelectMethod
+  requiresVerification  Boolean                      @default(true)
+  defaultExpiryMinutes  Int                          @default(90) @gte(5)
+  isDisabled            Boolean                      @default(false)
+  sessions              PortletSession[]
+
+  @@schema("portlets")
+}
+
+model PortletSession {
+  id                   String                     @id() @default(cuid())
+  createdUTC           Int
+  stage                PortletSessionStage        @default(draft)
+  portletId            String
+  portlet              Portlet                    @relation(fields: [portletId], references: [id])
+  recipientName        String?                    @length(min: 1, message: 'Required') @deny('update', stage != 'draft')
+  recipientEmail       String?                    @lower @email('Invalid email') @deny('update', stage != 'draft')
+  recipientPhoneNumber String?                    @deny('update', stage != 'draft')
+  activatedUTC         Int?                       @gte(createdUTC)
+  finalizedUTC         Int?                       @gt(activatedUTC)
+  expiryUTC            Int?                       @gt(activatedUTC)
+  discardedUTC         Int?                       @gt(activatedUTC)
+  discardType          PortletSessionDiscardType?
+  state                PortletSessionState?
+
+  @@allow('create, read, update', true)
+  @@allow('delete', false)
+
+  @@deny('create', portlet.isDisabled)
+
+  @@deny('update', future().stage == 'draft')
+
+  @@deny('update', future().stage == 'active' && stage != 'draft')
+  @@deny('update', future().stage == 'active' && portlet.isDisabled)
+  @@deny('update', future().stage == 'active' && recipientName == null)
+  @@deny('update', future().stage == 'active' && recipientEmail == null)
+  @@deny('update', future().stage == 'active' && future().activatedUTC == null)
+  @@deny('update', future().stage == 'active' && future().expiryUTC == null)
+
+  @@deny('update', future().stage == 'final' && stage != 'active')
+  @@deny('update', future().stage == 'final' && future().finalizedUTC == null)
+
+  @@deny('update', future().stage == 'discarded' && stage == 'final')
+  @@deny('update', future().stage == 'discarded' && future().discardedUTC == null)
+  @@deny('update', future().stage == 'discarded' && future().discardType == null)
+
+  @@schema("portlets")
+}
+
+model PortletSessionState {
+  id        String         @id() @default(cuid())
+  context   Json
+  inputs    Json
+  finals    Json?
+  sessionId String         @unique()
+  session   PortletSession @relation(fields: [sessionId], references: [id])
+
+  @@schema("portlets")
+}
+
+enum PortletSessionStage {
+  draft
+  active
+  final
+  discarded
+
+  @@schema("portlets")
+}
+
+enum PortletSessionDiscardType {
+  expired
+  manual
+
+  @@schema("portlets")
+}
+
+enum PortletRecipientSelectMethod {
+  manual
+  context
+
+  @@schema("portlets")
+}

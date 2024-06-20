@@ -24,9 +24,9 @@ export default async function activatePortletSession(
     throw new SMLError({ message: "Session does not exist" })
   }
 
-  const activatedUTC = new Date().getTime()
+  const activatedUTC = Math.floor(new Date().getTime() / 1_000)
   const expiryMinutes = input.expiryMinutes ?? initialSession.portlet.defaultExpiryMinutes
-  const expiryUTC = activatedUTC + expiryMinutes * 60_000
+  const expiryUTC = activatedUTC + expiryMinutes * 60
 
   const session = await db.portletSession.update({
     where: { id: input.portletSessionId },

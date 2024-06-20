@@ -23,7 +23,7 @@ export default async function createPortletSession(
   const session = await db.portletSession.create({
     data: {
       portletId: portlet.id,
-      createdUTC: new Date().getTime(),
+      createdUTC: Math.floor(new Date().getTime() / 1_000),
       state: {
         create: {
           context: {},

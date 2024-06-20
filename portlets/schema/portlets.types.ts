@@ -1,4 +1,9 @@
-import { PortletSession, PortletSessionDiscardType } from "@prisma/client"
+import {
+  Portlet,
+  PortletSession,
+  PortletSessionDiscardType,
+  PortletSessionState,
+} from "@prisma/client"
 
 interface ValidatedPortletSessionDraft extends PortletSession {
   stage: "draft"
@@ -42,3 +47,8 @@ export type ValidatedPortletSession =
   | ValidatedPortletSessionActive
   | ValidatedPortletSessionFinal
   | ValidatedPortletSessionDiscarded
+
+export type ExpandedValidatedPortletSession = ValidatedPortletSession & {
+  portlet: Portlet
+  state: PortletSessionState
+}

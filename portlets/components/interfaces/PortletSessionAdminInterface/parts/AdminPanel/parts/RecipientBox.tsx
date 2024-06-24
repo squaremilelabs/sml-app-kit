@@ -1,17 +1,16 @@
 "use client"
-
 import { useMemo } from "react"
-import { Button, Chip, Input } from "@nextui-org/react"
+import { Input } from "@nextui-org/react"
 import { useFormik } from "formik"
 import { PortletSessionUpdateSchema } from "@zenstackhq/runtime/zod/models"
 import { z } from "zod"
 import { useMutation, useQueryClient } from "@tanstack/react-query"
-import BoxContainer from "./BoxContainer"
 import usePortletSessionQuery from "~sml-app-kit/portlets/hooks/usePortletSessionQuery"
 import setPortletSessionRecipient, {
   SetPortletSessionRecipientInput,
 } from "~sml-app-kit/portlets/functions/commands/setPortletSessionRecipient"
 import convertEmptyStringsToNulls from "~sml-app-kit/form-helpers/convertEmptyStringsToNulls"
+import FormBox from "~sml-app-kit/smui/components/FormBox"
 
 const RecipientSchema = PortletSessionUpdateSchema.pick({
   recipientName: true,
@@ -23,22 +22,6 @@ export default function RecipientBox({ portletSessionId }: { portletSessionId: s
   const queryClient = useQueryClient()
   const portletSessionQuery = usePortletSessionQuery(portletSessionId)
   const portletSession = portletSessionQuery.data
-
-  const display = useMemo<"form" | "waiting" | "info" | "loading" | "error">(() => {
-    if (portletSessionQuery.isLoading) return "loading"
-    if (portletSessionQuery.isError) return "error"
-    if (portletSessionQuery.data) {
-      const portletSession = portletSessionQuery.data
-      if (portletSession.portlet.recipientSelectMethod === "manual") {
-        if (portletSession.stage === "draft") return "form"
-        return "info"
-      } else {
-        if (portletSession.stage === "draft") return "waiting"
-        return "info"
-      }
-    }
-    return "error"
-  }, [portletSessionQuery.isLoading, portletSessionQuery.isError, portletSessionQuery.data])
 
   const formik = useFormik<z.infer<typeof RecipientSchema>>({
     initialValues: {
@@ -73,53 +56,77 @@ export default function RecipientBox({ portletSessionId }: { portletSessionId: s
     },
   })
 
+  const isReadOnly = useMemo<boolean>(() => {
+    if (!portletSession) return true
+    if (portletSession.portlet.recipientSelectMethod !== "manual") return true
+    if (portletSession.stage !== "draft") return true
+    return false
+  }, [portletSession])
+
+  const description = useMemo<string | undefined>(() => {
+    if (!portletSession) return undefined
+    if (
+      portletSession.stage === "draft" &&
+      portletSession.portlet.recipientSelectMethod === "context"
+    ) {
+      return "Recipient is set automatically based on the above selections"
+    }
+    return undefined
+  }, [portletSession])
+
   return (
-    <BoxContainer title="Recipient" isLoading={display === "loading"} isError={display === "error"}>
-      {display === "waiting" && <Chip>Recipient will be set automatically</Chip>}
-      {display === "info" && (
-        <div>
-          <p>{portletSession?.recipientName}</p>
-          <div className="flex items-center">
-            <Chip>{portletSession?.recipientEmail}</Chip>
-            {portletSession?.recipientPhoneNumber && (
-              <Chip>{portletSession?.recipientPhoneNumber}</Chip>
-            )}
-          </div>
-        </div>
-      )}
-      {display === "form" && (
-        <form onSubmit={formik.handleSubmit} className="space-y-2">
-          <Input
-            label="Name"
-            {...formik.getFieldProps("recipientName")}
-            isInvalid={!!formik.touched.recipientName && !!formik.errors.recipientName}
-            errorMessage={formik.touched.recipientName ? formik.errors.recipientName : null}
-          />
+    <FormBox
+      title="Recipient"
+      description={description}
+      formik={formik}
+      hideActions={isReadOnly}
+      submitMutation={formSubmitMutation}
+      showLoadingSkeleton={portletSessionQuery.isLoading}
+    >
+      <div className="flex flex-col space-y-2">
+        <Input
+          label="Name"
+          color={
+            formik.initialValues.recipientName !== formik.values.recipientName
+              ? "primary"
+              : "default"
+          }
+          isInvalid={!!formik.touched.recipientName && !!formik.errors.recipientName}
+          errorMessage={formik.touched.recipientName ? formik.errors.recipientName : null}
+          isReadOnly={isReadOnly}
+          {...formik.getFieldProps("recipientName")}
+        />
+        <div className="flex flex-col space-y-2 @wsm:flex-row @wsm:space-x-2 @wsm:space-y-0">
           <Input
             label="Email"
-            {...formik.getFieldProps("recipientEmail")}
+            color={
+              formik.initialValues.recipientEmail !== formik.values.recipientEmail
+                ? "primary"
+                : "default"
+            }
             isInvalid={!!formik.touched.recipientEmail && !!formik.errors.recipientEmail}
             errorMessage={formik.touched.recipientEmail ? formik.errors.recipientEmail : null}
+            isReadOnly={isReadOnly}
+            {...formik.getFieldProps("recipientEmail")}
           />
           <Input
             label="Phone Number"
-            {...formik.getFieldProps("recipientPhoneNumber")}
+            color={
+              formik.initialValues.recipientPhoneNumber !== formik.values.recipientPhoneNumber
+                ? "primary"
+                : "default"
+            }
             isInvalid={
               !!formik.touched.recipientPhoneNumber && !!formik.errors.recipientPhoneNumber
             }
             errorMessage={
               formik.touched.recipientPhoneNumber ? formik.errors.recipientPhoneNumber : null
             }
+            isReadOnly={isReadOnly}
+            {...formik.getFieldProps("recipientPhoneNumber")}
           />
-          <Button
-            type="submit"
-            isLoading={formSubmitMutation.isPending}
-            isDisabled={!formik.dirty || !formik.isValid}
-          >
-            Save
-          </Button>
-        </form>
-      )}
-    </BoxContainer>
+        </div>
+      </div>
+    </FormBox>
   )
 }

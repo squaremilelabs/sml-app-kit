@@ -12,18 +12,16 @@ export default function AdminPanel({ portletSessionId }: { portletSessionId: str
   return (
     <div className="flex h-full w-full flex-col space-y-2">
       {/* HEADER */}
-      <div className="shrink-0 p-4 pb-0">
+      <div className="sticky top-0 z-50 shrink-0 bg-background/30 p-4 backdrop-blur-md">
         <Header portletSessionId={portletSessionId} />
       </div>
       {/* BODY */}
-      <div className="grow space-y-4 overflow-auto p-4">
+      <div className="grow space-y-4 overflow-auto p-4 pt-0">
         <Box title="Controls">
           <div />
         </Box>
         <RecipientBox portletSessionId={portletSessionId} />
       </div>
-      {/* FOOTER */}
-      <div className="shrink-0 p-4 pt-0"></div>
     </div>
   )
 }

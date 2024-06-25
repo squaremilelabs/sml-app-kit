@@ -1,6 +1,6 @@
 "use client"
 import { useMemo } from "react"
-import { Input } from "@nextui-org/react"
+import { Button, Input } from "@nextui-org/react"
 import { useFormik } from "formik"
 import { PortletSessionUpdateSchema } from "@zenstackhq/runtime/zod/models"
 import { z } from "zod"
@@ -10,7 +10,7 @@ import setPortletSessionRecipient, {
   SetPortletSessionRecipientInput,
 } from "~sml-app-kit/portlets/functions/commands/setPortletSessionRecipient"
 import convertEmptyStringsToNulls from "~sml-app-kit/form-helpers/convertEmptyStringsToNulls"
-import FormBox from "~sml-app-kit/smui/components/FormBox"
+import Box from "~sml-app-kit/smui/components/Box"
 
 const RecipientSchema = PortletSessionUpdateSchema.pick({
   recipientName: true,
@@ -63,7 +63,7 @@ export default function RecipientBox({ portletSessionId }: { portletSessionId: s
     return false
   }, [portletSession])
 
-  const description = useMemo<string | undefined>(() => {
+  const subtitle = useMemo<string | undefined>(() => {
     if (!portletSession) return undefined
     if (
       portletSession.stage === "draft" &&
@@ -75,13 +75,30 @@ export default function RecipientBox({ portletSessionId }: { portletSessionId: s
   }, [portletSession])
 
   return (
-    <FormBox
+    <Box
+      as="form"
       title="Recipient"
-      description={description}
-      formik={formik}
-      hideActions={isReadOnly}
-      submitMutation={formSubmitMutation}
-      showLoadingSkeleton={portletSessionQuery.isLoading}
+      subtitle={subtitle}
+      onSubmit={formik.handleSubmit}
+      onReset={formik.handleReset}
+      bottomContent={
+        formik.dirty ? (
+          <div className="flex items-center justify-stretch space-x-2">
+            <Button type="reset" className="grow font-semibold" variant="flat">
+              Reset
+            </Button>
+            <Button
+              type="submit"
+              className="shrink-0 grow font-semibold"
+              color="primary"
+              isDisabled={!formik.isValid}
+              isLoading={formSubmitMutation.isPending}
+            >
+              Save
+            </Button>
+          </div>
+        ) : null
+      }
     >
       <div className="flex flex-col space-y-2">
         <Input
@@ -127,6 +144,6 @@ export default function RecipientBox({ portletSessionId }: { portletSessionId: s
           />
         </div>
       </div>
-    </FormBox>
+    </Box>
   )
 }

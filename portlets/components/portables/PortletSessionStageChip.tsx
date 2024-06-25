@@ -4,7 +4,7 @@ import { ValidatedPortletSession } from "~sml-app-kit/portlets/schema/portlets.t
 
 const chipPropsMap: Record<PortletSessionStage, ChipProps> = {
   draft: {
-    color: "warning",
+    color: "default",
     children: "Draft",
   },
   active: {

@@ -8,12 +8,9 @@ export default function Header({ portletSessionId }: { portletSessionId: string 
   const portletSession = portletSessionQuery.data
 
   return (
-    <div className="flex flex-col space-y-1">
+    <div className="flex flex-col">
       <div className="flex items-center space-x-2">
         <h2 className="font-semibold">Portlet</h2>
-        {portletSession ? (
-          <PortletSessionStageChip portletSession={portletSession} size="sm" />
-        ) : null}
       </div>
       {portletSessionQuery.isLoading ? (
         <Skeleton className="h-7 w-1/2 rounded-full" />

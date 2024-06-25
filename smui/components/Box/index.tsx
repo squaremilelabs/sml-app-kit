@@ -39,7 +39,7 @@ export default function Box<As extends React.ElementType>({
     >
       {/* TOP CONTENT */}
       {showTopContent && (
-        <div className={twMerge("px-2 pt-1", classNames?.topContentWrapper)}>
+        <div className={twMerge("shrink-0 px-2 pt-1", classNames?.topContentWrapper)}>
           {topContent ?? (
             <div className="flex items-center justify-between">
               <div>
@@ -54,7 +54,7 @@ export default function Box<As extends React.ElementType>({
       {/* MAIN CONTENT */}
       <div
         className={twMerge(
-          "rounded bg-background p-4 shadow-small @container",
+          "grow rounded bg-background p-4 shadow-small @container",
           classNames?.mainContentWrapper
         )}
       >
@@ -62,7 +62,9 @@ export default function Box<As extends React.ElementType>({
       </div>
       {/* BOTTOM CONTENT */}
       {showBottomContent && (
-        <div className={twMerge("pb-1", classNames?.bottomContentWrapper)}>{bottomContent}</div>
+        <div className={twMerge("shrink-0 px-2 pb-1", classNames?.bottomContentWrapper)}>
+          {bottomContent}
+        </div>
       )}
     </Component>
   )

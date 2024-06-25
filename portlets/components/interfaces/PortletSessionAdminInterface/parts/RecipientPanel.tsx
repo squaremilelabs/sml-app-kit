@@ -10,7 +10,7 @@ import setPortletSessionRecipient, {
   SetPortletSessionRecipientInput,
 } from "~sml-app-kit/portlets/functions/commands/setPortletSessionRecipient"
 import convertEmptyStringsToNulls from "~sml-app-kit/form-helpers/convertEmptyStringsToNulls"
-import Box from "~sml-app-kit/smui/components/Box"
+import Panel from "~sml-app-kit/smui/components/Panel"
 
 const RecipientSchema = PortletSessionUpdateSchema.pick({
   recipientName: true,
@@ -18,7 +18,7 @@ const RecipientSchema = PortletSessionUpdateSchema.pick({
   recipientPhoneNumber: true,
 })
 
-export default function RecipientBox({ portletSessionId }: { portletSessionId: string }) {
+export default function RecipientPanel({ portletSessionId }: { portletSessionId: string }) {
   const queryClient = useQueryClient()
   const portletSessionQuery = usePortletSessionQuery(portletSessionId)
   const portletSession = portletSessionQuery.data
@@ -69,13 +69,13 @@ export default function RecipientBox({ portletSessionId }: { portletSessionId: s
       portletSession.stage === "draft" &&
       portletSession.portlet.recipientSelectMethod === "context"
     ) {
-      return "Recipient is set automatically based on the above selections"
+      return "Recipient is set automatically based on the below selections"
     }
     return undefined
   }, [portletSession])
 
   return (
-    <Box
+    <Panel
       as="form"
       title="Recipient"
       subtitle={subtitle}
@@ -144,6 +144,6 @@ export default function RecipientBox({ portletSessionId }: { portletSessionId: s
           />
         </div>
       </div>
-    </Box>
+    </Panel>
   )
 }

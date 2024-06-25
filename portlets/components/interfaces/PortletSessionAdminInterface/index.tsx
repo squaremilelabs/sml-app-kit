@@ -1,8 +1,7 @@
 "use client"
-import { Button, ButtonGroup, Chip } from "@nextui-org/react"
-import PortletSessionStageChip from "../../portables/PortletSessionStageChip"
-import AdminPanel from "./parts/AdminPanel"
-import Box from "~sml-app-kit/smui/components/Box"
+import { Skeleton } from "@nextui-org/react"
+import RecipientPanel from "./parts/RecipientPanel"
+import PortletPanel from "./parts/PortletPanel"
 import usePortletSessionQuery from "~sml-app-kit/portlets/hooks/usePortletSessionQuery"
 
 export default function PortletSessionAdminInterface({
@@ -14,35 +13,33 @@ export default function PortletSessionAdminInterface({
   const portletSession = portletSessionQuery.data
   return (
     <main className="flex h-full w-full flex-wrap overflow-auto @container">
-      <section className="w-full @wmd:w-1/2 @wlg:w-7/12">
-        <AdminPanel portletSessionId={portletSessionId} />
-      </section>
-      <section className="sticky top-0 max-h-screen w-full p-4 @wmd:h-full @wmd:w-1/2 @wlg:w-5/12">
-        <Box
-          topContent={
+      {/* CONTROLS SECTION */}
+      <section className="flex w-full justify-center @wmd:w-1/2">
+        <div className="flex w-full max-w-wmd flex-col space-y-2">
+          {/* HEADER */}
+          <div className="sticky top-0 z-50 flex shrink-0 flex-col bg-background/30 p-4 backdrop-blur-md">
             <div className="flex items-center space-x-2">
-              {!!portletSession && (
-                <PortletSessionStageChip
-                  portletSession={portletSession}
-                  variant="flat"
-                  radius="sm"
-                />
-              )}
-              <span className="text-sm text-default-500">Created 43 minutes ago</span>
+              <h2 className="font-semibold">Configure Portlet</h2>
             </div>
-          }
-          bottomContent={
-            <div className="flex justify-end">
-              <Button color="primary">Send</Button>
-            </div>
-          }
-          classNames={{
-            baseWrapper: "h-full",
-            mainContentWrapper: "overflow-auto grow",
-          }}
-        >
-          <div className="h-[1000px]">Test</div>
-        </Box>
+            {portletSessionQuery.isLoading ? (
+              <Skeleton className="h-7 w-1/4 rounded-full" />
+            ) : (
+              <h1 className="text-balance text-xl font-bold text-primary">
+                {portletSession?.portlet.title}
+              </h1>
+            )}
+          </div>
+          {/* CONTENT */}
+          <div className="grow space-y-4 p-4 pt-0">
+            <RecipientPanel portletSessionId={portletSessionId} />
+          </div>
+        </div>
+      </section>
+      {/* PORTLET SECTION */}
+      <section className="sticky top-0 flex h-screen w-full justify-center p-4 @wmd:w-1/2">
+        <div className="w-full max-w-wmd">
+          <PortletPanel portletSessionId={portletSessionId} />
+        </div>
       </section>
     </main>
   )

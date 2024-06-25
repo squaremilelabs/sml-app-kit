@@ -2,7 +2,11 @@ import { Chip, ChipProps } from "@nextui-org/react"
 import { PortletSessionStage } from "@prisma/client"
 import { ValidatedPortletSession } from "~sml-app-kit/portlets/schema/portlets.types"
 
-const chipPropsMap: Record<PortletSessionStage, ChipProps> = {
+const chipPropsMap: Record<PortletSessionStage | "PLACEHOLDER", ChipProps> = {
+  PLACEHOLDER: {
+    color: "default",
+    children: "...",
+  },
   draft: {
     color: "default",
     children: "Draft",
@@ -25,10 +29,8 @@ export default function PortletSessionStageChip({
   portletSession,
   ...chipProps
 }: {
-  portletSession: ValidatedPortletSession
+  portletSession: ValidatedPortletSession | undefined
 } & ChipProps) {
-  const { stage } = portletSession
-  const stageChipProps = chipPropsMap[stage]
-
-  return <Chip variant="dot" {...stageChipProps} {...chipProps} />
+  const stageChipProps = chipPropsMap[portletSession?.stage ?? "PLACEHOLDER"]
+  return <Chip {...stageChipProps} {...chipProps} />
 }

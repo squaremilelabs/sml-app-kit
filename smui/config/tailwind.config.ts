@@ -142,11 +142,11 @@ const tailwindConfig = merge(
     ],
     theme: {
       screens: {
-        wxs: "288px",
-        wsm: "576px",
-        wmd: "864px",
-        wlg: "1152px",
-        wxl: "1440px",
+        xs: "288px",
+        sm: "576px",
+        md: "864px",
+        lg: "1152px",
+        xl: "1440px",
       },
       containers: {
         wxs: "288px",

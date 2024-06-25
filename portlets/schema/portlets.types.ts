@@ -52,3 +52,5 @@ export type ExpandedValidatedPortletSession = ValidatedPortletSession & {
   portlet: Portlet
   state: PortletSessionState
 }
+
+export type PortletSendMethod = "email" | "sms" | "link"

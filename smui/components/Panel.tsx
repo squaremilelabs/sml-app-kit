@@ -1,7 +1,7 @@
 import React from "react"
 import { ClassNameValue, twMerge } from "tailwind-merge"
 
-export default function Box<As extends React.ElementType>({
+export default function Panel<As extends React.ElementType>({
   as,
   title,
   subtitle,
@@ -25,7 +25,7 @@ export default function Box<As extends React.ElementType>({
     bottomContentWrapper?: ClassNameValue
   }
   children: React.ReactNode
-} & React.ComponentPropsWithoutRef<As>) {
+} & Omit<React.ComponentPropsWithoutRef<As>, "className">) {
   const Component = as ?? "div"
   const showTopContent = !!topContent || !!title || !!subtitle || !!topAsideContent
   const showBottomContent = !!bottomContent

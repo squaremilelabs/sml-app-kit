@@ -26,9 +26,8 @@ export default async function createPortletSession(
       createdUTC: Math.floor(new Date().getTime() / 1_000),
       state: {
         create: {
-          context: {},
+          controls: {},
           inputs: {},
-          finals: {},
         },
       },
     },

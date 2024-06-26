@@ -3,6 +3,7 @@ import Icon from "@mdi/react"
 import {
   Button,
   ButtonGroup,
+  ButtonGroupProps,
   Dropdown,
   DropdownItem,
   DropdownMenu,
@@ -15,7 +16,10 @@ import SendModal from "./parts/SendModal"
 import usePortletSessionQuery from "~sml-app-kit/portlets/hooks/usePortletSessionQuery"
 import { PortletSendMethod } from "~sml-app-kit/portlets/schema/portlets.types"
 
-export default function SendActions({ portletSessionId }: { portletSessionId: string }) {
+export default function SendActions({
+  portletSessionId,
+  ...buttonGroupProps
+}: { portletSessionId: string } & ButtonGroupProps) {
   const portletSessionQuery = usePortletSessionQuery(portletSessionId)
   const portletSession = portletSessionQuery.data
   const [selectedMethod, setSelectedMethod] = useState<PortletSendMethod>("email")
@@ -48,7 +52,7 @@ export default function SendActions({ portletSessionId }: { portletSessionId: st
 
   return (
     <>
-      <ButtonGroup color="primary" isDisabled={allDisabled} className="w-full">
+      <ButtonGroup color="primary" isDisabled={allDisabled} {...buttonGroupProps}>
         <Button className="w-full font-semibold" onPress={modalDisclosure.onOpen}>
           {labelsMap[selectedMethod]}
         </Button>

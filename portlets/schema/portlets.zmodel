@@ -68,7 +68,11 @@ model PortletSessionState {
   controls  Json
   inputs    Json
 
-  @@allow('all', true)
+  @@allow('create, read, update', true)
+  @@allow('delete', false)
+
+  @@deny('update', session.stage == 'discarded')
+
   @@schema("portlets")
 }
 

@@ -69,7 +69,7 @@ export default function RecipientPanel({ portletSessionId }: { portletSessionId:
       portletSession.stage === "draft" &&
       portletSession.portlet.recipientSelectMethod === "state"
     ) {
-      return "Recipient is set automatically based on the below selections"
+      return "Recipient is set automatically"
     }
     return undefined
   }, [portletSession])

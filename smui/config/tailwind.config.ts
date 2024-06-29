@@ -4,8 +4,8 @@ import { NextUIPluginConfig, nextui } from "@nextui-org/react"
 import { Config as TailwindConfig } from "tailwindcss"
 import tailwindContainerQueryPlugin from "@tailwindcss/container-queries"
 import tailwindExtendedShadowsPlugin from "tailwind-extended-shadows"
-import smuiConfig from "smui.config"
 import { PluginAPI } from "tailwindcss/types/config"
+import smuiConfig from "smui.config"
 
 const nextUIConfig = merge(
   {

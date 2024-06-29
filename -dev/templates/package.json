@@ -1,4 +1,17 @@
 {
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "node_modules/.bin/eslint . && next lint",
+    "lint-fix": "node_modules/.bin/eslint . --fix"
+  },
+  "prisma": {
+    "schema": "lib/database/prisma/schema.prisma"
+  },
+  "zenstack": {
+    "schema": "lib/database/schema.zmodel"
+  },
   "dependencies": {
     "@auth/prisma-adapter": "^2.4.1",
     "@internationalized/date": "^3.5.4",

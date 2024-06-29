@@ -6,21 +6,11 @@ model User {
   email         String    @unique
   emailVerified DateTime?
   image         String?
-  roleId        String?
-  role          Role?     @relation(fields: [roleId], references: [id])
+  userType      String
   accounts      Account[]
   sessions      Session[]
 
-  @@schema("auth")
-}
-
-model Role {
-  id      String   @id
-  label   String
-  isAdmin Boolean  @default(false)
-  scopes  String[]
-  users   User[]
-
+  @@delegate(userType)
   @@schema("auth")
 }
 
@@ -41,6 +31,7 @@ model Account {
   user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@id([provider, providerAccountId])
+
   @@schema("auth")
 }
 

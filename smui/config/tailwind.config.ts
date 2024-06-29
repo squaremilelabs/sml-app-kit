@@ -5,7 +5,10 @@ import { Config as TailwindConfig } from "tailwindcss"
 import tailwindContainerQueryPlugin from "@tailwindcss/container-queries"
 import tailwindExtendedShadowsPlugin from "tailwind-extended-shadows"
 import { PluginAPI } from "tailwindcss/types/config"
-import smuiConfig from "smui.config"
+import { SMUIConfig } from "./types"
+
+const smuiConfigPath = "smui.config"
+const smuiConfig = import(smuiConfigPath).then((sc) => sc).catch(() => ({})) as SMUIConfig
 
 const nextUIConfig = merge(
   {

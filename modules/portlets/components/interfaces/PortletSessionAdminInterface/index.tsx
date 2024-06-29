@@ -2,7 +2,7 @@
 import { Skeleton } from "@nextui-org/react"
 import RecipientPanel from "./parts/RecipientPanel"
 import PortletPanel from "./parts/PortletPanel"
-import usePortletSessionQuery from "~sml-app-kit/portlets/hooks/usePortletSessionQuery"
+import usePortletSessionQuery from "~sml-app-kit/modules/portlets/hooks/usePortletSessionQuery"
 
 export default function PortletSessionAdminInterface({
   portletSessionId,

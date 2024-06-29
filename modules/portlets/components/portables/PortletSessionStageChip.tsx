@@ -1,6 +1,6 @@
 import { Chip, ChipProps } from "@nextui-org/react"
 import { PortletSessionStage } from "@prisma/client"
-import { ValidatedPortletSession } from "~sml-app-kit/portlets/schema/portlets.types"
+import { ValidatedPortletSession } from "~sml-app-kit/modules/portlets/schema/portlets.types"
 
 const chipPropsMap: Record<PortletSessionStage | "PLACEHOLDER", ChipProps> = {
   PLACEHOLDER: {

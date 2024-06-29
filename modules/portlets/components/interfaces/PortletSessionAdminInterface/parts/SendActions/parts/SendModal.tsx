@@ -22,8 +22,8 @@ import {
   useDisclosure,
 } from "@nextui-org/react"
 import { useEffect, useState } from "react"
-import usePortletSessionQuery from "~sml-app-kit/portlets/hooks/usePortletSessionQuery"
-import { PortletSendMethod } from "~sml-app-kit/portlets/schema/portlets.types"
+import usePortletSessionQuery from "~sml-app-kit/modules/portlets/hooks/usePortletSessionQuery"
+import { PortletSendMethod } from "~sml-app-kit/modules/portlets/schema/portlets.types"
 
 const expiryMinutesLabelMap = new Map<number, string>([
   [5, "5 minutes"],

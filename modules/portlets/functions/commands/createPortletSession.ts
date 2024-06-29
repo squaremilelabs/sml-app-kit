@@ -1,7 +1,7 @@
 "use server"
 
-import { ValidatedPortletSession } from "~sml-app-kit/portlets/schema/portlets.types"
-import Prisma from "~sml-app-kit/services/Prisma"
+import { ValidatedPortletSession } from "~sml-app-kit/modules/portlets/schema/portlets.types"
+import PrismaEnhanced from "~sml-app-kit/services/prisma/PrismaEnhanced"
 import SMLError from "~sml-app-kit/errors/SMLError"
 
 export type CreatePortletSessionInput = {
@@ -12,7 +12,7 @@ export default async function createPortletSession(
   input: CreatePortletSessionInput
 ): Promise<ValidatedPortletSession> {
   // TODO: implement auth
-  const { db } = new Prisma()
+  const { db } = new PrismaEnhanced()
 
   const portlet = await db.portlet.findUnique({ where: { id: input.portletId } })
 

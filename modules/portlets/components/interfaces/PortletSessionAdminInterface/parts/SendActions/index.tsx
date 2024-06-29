@@ -13,8 +13,8 @@ import {
 } from "@nextui-org/react"
 import React, { useEffect, useState } from "react"
 import SendModal from "./parts/SendModal"
-import usePortletSessionQuery from "~sml-app-kit/portlets/hooks/usePortletSessionQuery"
-import { PortletSendMethod } from "~sml-app-kit/portlets/schema/portlets.types"
+import usePortletSessionQuery from "~sml-app-kit/modules/portlets/hooks/usePortletSessionQuery"
+import { PortletSendMethod } from "~sml-app-kit/modules/portlets/schema/portlets.types"
 
 export default function SendActions({
   portletSessionId,

@@ -1,4 +1,4 @@
-import { ExpandedValidatedPortletSession } from "~sml-app-kit/portlets/schema/portlets.types"
+import { ExpandedValidatedPortletSession } from "~sml-app-kit/modules/portlets/schema/portlets.types"
 import Prisma from "~sml-app-kit/services/Prisma"
 
 export type SetPortletSessionStateInput = {

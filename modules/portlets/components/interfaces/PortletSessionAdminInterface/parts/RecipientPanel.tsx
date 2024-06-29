@@ -5,11 +5,11 @@ import { useFormik } from "formik"
 import { PortletSessionUpdateSchema } from "@zenstackhq/runtime/zod/models"
 import { z } from "zod"
 import { useMutation, useQueryClient } from "@tanstack/react-query"
-import usePortletSessionQuery from "~sml-app-kit/portlets/hooks/usePortletSessionQuery"
+import usePortletSessionQuery from "~sml-app-kit/modules/portlets/hooks/usePortletSessionQuery"
 import setPortletSessionRecipient, {
   SetPortletSessionRecipientInput,
-} from "~sml-app-kit/portlets/functions/commands/setPortletSessionRecipient"
-import convertEmptyStringsToNulls from "~sml-app-kit/form-helpers/convertEmptyStringsToNulls"
+} from "~sml-app-kit/modules/portlets/functions/commands/setPortletSessionRecipient"
+import convertEmptyStringsToNulls from "~sml-app-kit/helpers/convertEmptyStringsToNulls"
 import Panel from "~sml-app-kit/smui/components/Panel"
 
 const RecipientSchema = PortletSessionUpdateSchema.pick({

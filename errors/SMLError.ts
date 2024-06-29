@@ -1,5 +1,3 @@
-type SMLErrorSource = "controller" | "model" | "unknown"
-
 type SMLErrorInput = {
   message: string
 }

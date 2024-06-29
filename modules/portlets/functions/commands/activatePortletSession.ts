@@ -1,7 +1,7 @@
 "use server"
 
 import SMLError from "~sml-app-kit/errors/SMLError"
-import { ValidatedPortletSession } from "~sml-app-kit/portlets/schema/portlets.types"
+import { ValidatedPortletSession } from "~sml-app-kit/modules/portlets/schema/portlets.types"
 import Prisma from "~sml-app-kit/services/Prisma"
 
 export type ActivatePortletSessionInput = {

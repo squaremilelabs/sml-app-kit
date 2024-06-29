@@ -1,8 +1,8 @@
 import { Button, Skeleton } from "@nextui-org/react"
 import SendActions from "./SendActions"
-import PortletSessionStageChip from "~sml-app-kit/portlets/components/portables/PortletSessionStageChip"
-import usePortletSessionQuery from "~sml-app-kit/portlets/hooks/usePortletSessionQuery"
-import { ExpandedValidatedPortletSession } from "~sml-app-kit/portlets/schema/portlets.types"
+import PortletSessionStageChip from "~sml-app-kit/modules/portlets/components/portables/PortletSessionStageChip"
+import usePortletSessionQuery from "~sml-app-kit/modules/portlets/hooks/usePortletSessionQuery"
+import { ExpandedValidatedPortletSession } from "~sml-app-kit/modules/portlets/schema/portlets.types"
 import Panel from "~sml-app-kit/smui/components/Panel"
 
 export default function PortletPanel({ portletSessionId }: { portletSessionId: string }) {

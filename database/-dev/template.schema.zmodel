@@ -1,0 +1,12 @@
+// ADD IMPORTS HERE (minimum required = auth)
+
+generator client {
+  provider = "prisma-client-js"
+  previewFeatures = ["multiSchema", "driverAdapters"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url = env("DATABASE_URL")
+  schemas = ["auth"]
+}

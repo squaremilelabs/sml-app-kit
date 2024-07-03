@@ -1,13 +1,13 @@
 "use client"
 
-import "./smui.css"
+import "./global.css"
 import React from "react"
 import { NextUIProvider } from "@nextui-org/react"
 import { ThemeProvider as NextThemeProvider } from "next-themes"
 import { ClassNameValue, twMerge } from "tailwind-merge"
 import { useRouter } from "next/navigation"
 
-export default function SMUIProvider({
+export default function UIProvider({
   children,
   additionalClassNames,
 }: {

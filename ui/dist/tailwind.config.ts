@@ -5,10 +5,9 @@ import { Config as TailwindConfig } from "tailwindcss"
 import tailwindContainerQueryPlugin from "@tailwindcss/container-queries"
 import tailwindExtendedShadowsPlugin from "tailwind-extended-shadows"
 import { PluginAPI } from "tailwindcss/types/config"
-import { SMUIConfig } from "./types"
+import smlConfig from "sml.config"
 
-const smuiConfigPath = "smui.config"
-const smuiConfig = import(smuiConfigPath).then((sc) => sc).catch(() => ({})) as SMUIConfig
+const customUIConfig = smlConfig.ui ?? {}
 
 const nextUIConfig = merge(
   {
@@ -123,7 +122,7 @@ const nextUIConfig = merge(
       },
     },
   } as NextUIPluginConfig,
-  smuiConfig?.nextui ?? {}
+  customUIConfig.nextui ?? {}
 )
 
 const tailwindConfig = merge(
@@ -187,7 +186,7 @@ const tailwindConfig = merge(
       nextui(nextUIConfig),
     ],
   } as TailwindConfig,
-  smuiConfig?.tailwind ?? {}
+  customUIConfig?.tailwind ?? {}
 )
 
 export default tailwindConfig
